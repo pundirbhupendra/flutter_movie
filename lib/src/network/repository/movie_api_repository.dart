@@ -1,6 +1,6 @@
 
 import 'package:flutter_movie/src/movieDetails/model/movie_details.dart';
-import 'package:flutter_movie/src/movieList/model/Movie_list.dart';
+import 'package:flutter_movie/src/movieList/model/movie_items.dart';
 import 'package:flutter_movie/src/network/repository/movie_api_client.dart';
 import 'package:meta/meta.dart';
 class MovieApiRepository {

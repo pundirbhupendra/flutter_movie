@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_movie/src/movieList/model/Movie_list.dart';
+import 'package:flutter_movie/src/movieList/model/movie_items.dart';
 import 'package:meta/meta.dart';
 abstract class MovieListState extends Equatable {
   const MovieListState();

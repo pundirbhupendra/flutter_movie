@@ -15,6 +15,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final httpClient =  http.Client();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -22,12 +23,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<MovieListBloc>(
           create: (context) => MovieListBloc(
               movieApiRepository: MovieApiRepository(
-                  movieApiClient: MovieApiClient(httpClient: http.Client()))),
+                  movieApiClient: MovieApiClient(httpClient:httpClient ))),
         ),
         BlocProvider<MovieDetailBloc>(
           create: (context) => MovieDetailBloc(
               movieRepository: MovieApiRepository(
-                  movieApiClient: MovieApiClient(httpClient: http.Client()))),
+                  movieApiClient: MovieApiClient(httpClient: httpClient ))),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movie/src/movieList/bloc/movie_lisr_event.dart';
 import 'package:flutter_movie/src/movieList/bloc/movie_list_state.dart';
-import 'package:flutter_movie/src/movieList/model/Movie_list.dart';
+import 'package:flutter_movie/src/movieList/model/movie_items.dart';
 import 'package:flutter_movie/src/network/repository/movie_api_repository.dart';
 import 'package:meta/meta.dart';
 

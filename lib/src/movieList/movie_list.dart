@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movie/src/constants/string_constant.dart';
-import 'package:flutter_movie/src/movieDetails/bloc/bloc.dart';
 import 'package:flutter_movie/src/movieList/bloc/bloc.dart';
 import 'package:flutter_movie/src/routes/router.gr.dart';
 
-import 'model/Movie_list.dart';
+import 'model/movie_items.dart';
 
 class MovieList extends StatefulWidget {
   @override
