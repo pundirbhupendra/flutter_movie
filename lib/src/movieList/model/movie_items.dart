@@ -5,7 +5,6 @@ class ItemList {
   List<Result> results = [];
 
   ItemList.fromJson(Map<String, dynamic> parsedJson) {
-    print(parsedJson['results'].length);
     page = parsedJson['page'];
     total_results = parsedJson['total_results'];
     total_pages = parsedJson['total_pages'];

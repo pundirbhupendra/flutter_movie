@@ -9,7 +9,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
   final MovieApiRepository movieApiRepository;
 
   MovieListBloc({@required this.movieApiRepository})
-      : assert(movieApiRepository!= null);
+      : assert(movieApiRepository != null);
 
   @override
   MovieListState get initialState => MovieListLoading();
@@ -21,15 +21,15 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     }
   }
 
- Stream<MovieListState> _mapFetchMovieListToState(MovieListEvent event) async*{
-     yield MovieListLoading();
+  Stream<MovieListState> _mapFetchMovieListToState(
+      MovieListEvent event) async* {
+    yield MovieListLoading();
 
-       try{
-         final ItemList movieList= await movieApiRepository.fetchAllMovieLists();
-         yield MovieListLoaded(movieList: movieList);
-       }catch(e){
-         yield MovieListError(message: e.toString());
-       }
-
- }
+    try {
+      final ItemList movieList = await movieApiRepository.fetchAllMovieLists();
+      yield MovieListLoaded(movieList: movieList);
+    } catch (e) {
+      yield MovieListError(message: e.toString());
+    }
+  }
 }

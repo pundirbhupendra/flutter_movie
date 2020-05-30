@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
 import 'package:flutter_movie/src/movieList/movie_list.dart';
 import 'package:flutter_movie/src/movieDetails/movie_detail.dart';
+import 'package:flutter_movie/src/movieList/model/movie_items.dart';
 
 class Router {
   static const movieList = '/';
@@ -26,43 +27,16 @@ class Router {
           settings: settings,
         );
       case Router.movieDetail:
-        if (hasInvalidArgs<MovieDetailArguments>(args, isRequired: true)) {
-          return misTypedArgsRoute<MovieDetailArguments>(args);
+        if (hasInvalidArgs<Result>(args, isRequired: true)) {
+          return misTypedArgsRoute<Result>(args);
         }
-        final typedArgs = args as MovieDetailArguments;
+        final typedArgs = args as Result;
         return MaterialPageRoute(
-          builder: (_) => MovieDetail(
-              movieId: typedArgs.movieId,
-              movieTitle: typedArgs.movieTitle,
-              releaseDate: typedArgs.releaseDate,
-              voteAverag: typedArgs.voteAverag,
-              posterUrl: typedArgs.posterUrl,
-              description: typedArgs.description),
+          builder: (_) => MovieDetail(result: typedArgs),
           settings: settings,
         );
       default:
         return unknownRoutePage(settings.name);
     }
   }
-}
-
-//**************************************************************************
-// Arguments holder classes
-//***************************************************************************
-
-//MovieDetail arguments holder class
-class MovieDetailArguments {
-  final int movieId;
-  final String movieTitle;
-  final String releaseDate;
-  final String voteAverag;
-  final String posterUrl;
-  final String description;
-  MovieDetailArguments(
-      {@required this.movieId,
-      @required this.movieTitle,
-      @required this.releaseDate,
-      @required this.voteAverag,
-      @required this.posterUrl,
-      @required this.description});
 }

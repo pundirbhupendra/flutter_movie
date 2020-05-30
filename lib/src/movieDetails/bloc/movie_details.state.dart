@@ -14,7 +14,7 @@ class MovieDetailLoading extends MovieDetailState {
   List<Object> get props => [];
 }
 class MovieDetailLoaded extends MovieDetailState{
-  MovieDetailResponse  movieDetailResponse;
+ final MovieDetailResponse  movieDetailResponse;
   MovieDetailLoaded({@required this.movieDetailResponse});
 
   @override
