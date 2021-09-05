@@ -15,6 +15,9 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+**# Handle Network Calls Using Flutter Bloc Pattern**
+
+**Android Screens**
 
 
-
+<img src="https://github.com/pundirbhupendra/flutter_movie/blob/master/screenshots/moviehome.png" height="600">  </img><img src="https://github.com/pundirbhupendra/flutter_movie/blob/master/screenshots/moviedetails.png" height="600"> </img><img src="https://github.com/pundirbhupendra/flutter_movie/blob/master/screenshots/moviesearch.png" height="600"></img> 
