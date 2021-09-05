@@ -7,7 +7,7 @@ abstract class MovieDetailEvent extends Equatable{
 class FetchMovieDetail extends  MovieDetailEvent {
   final int id;
 
-  const FetchMovieDetail({@required this.id}) : assert(id != null);
+  const FetchMovieDetail({required this.id}) : assert(id != null);
 
   @override
   List<Object> get props => [id];

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movie/src/constants/string_constant.dart';
@@ -22,7 +23,7 @@ class _MovieListState extends State<MovieList> {
     searchController.clear();
   }
 
-  TypeAheadFormField searchTextField;
+  TypeAheadFormField? searchTextField;
 
   @override
   void initState() {
@@ -96,7 +97,7 @@ class _MovieListState extends State<MovieList> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: Text(
-                              state.movieList.results[index].original_title,
+                              state.movieList.results[index].original_title!,
                               maxLines: 5,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.lexendMega(
@@ -120,7 +121,8 @@ class _MovieListState extends State<MovieList> {
   }
 
   void navigateToMovieDetail(BuildContext context, Result result) {
-    Router.navigator.pushNamed(Router.movieDetail, arguments: result);
+     AutoRouter.of(context).push(MovieDetail(result: result));
+  //  Router.navigator.pushNamed(Router.movieDetail, arguments: result);
   }
 
   Widget _searchMovies(BuildContext context) {
@@ -137,7 +139,7 @@ class _MovieListState extends State<MovieList> {
           Expanded(
               child: searchTextField = TypeAheadFormField<Result>(
             textFieldConfiguration: TextFieldConfiguration(
-                maxLines: null,
+               //ss maxLines: null,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: "Search Movies."),
                 controller: searchController),
@@ -158,14 +160,14 @@ class _MovieListState extends State<MovieList> {
                    errorWidget: (context, url, error) => Image.network('https://azadchaiwala.pk/getImage?i=&t=course',width: 55,height: 80,),
                   ),
                 title: Text(
-                  suggestion.original_title,
+                  suggestion.original_title!,
                   style: GoogleFonts.lexendMega(),
                 ),
               );
             },
             onSuggestionSelected: (suggestion) async {
-              Router.navigator
-                  .pushNamed(Router.movieDetail, arguments: suggestion);
+               AutoRouter.of(context).push(MovieDetail(result: suggestion));
+            
             },
           )),
           InkWell(
@@ -178,7 +180,7 @@ class _MovieListState extends State<MovieList> {
     );
   }
 
-  _posterImage(String path) => CachedNetworkImage(
+  _posterImage(String? path) => CachedNetworkImage(
         imageUrl:
             'https://image.tmdb.org/t/p/w185$path',
         imageBuilder: (context, imageProvider) => Container(

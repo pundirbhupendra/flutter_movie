@@ -1,7 +1,7 @@
 class ItemList {
-  int page;
-  int total_results;
-  int total_pages;
+  int? page;
+  int? total_results;
+  int? total_pages;
   List<Result> results = [];
 
   ItemList.fromJson(Map<String, dynamic> parsedJson) {
@@ -18,28 +18,28 @@ class ItemList {
 
   List<Result> get result => results;
 
-  int get total_page => total_pages;
+  int? get total_page => total_pages;
 
-  int get total_result => total_results;
+  int? get total_result => total_results;
 
-  int get pages => page;
+  int? get pages => page;
 }
 
 class Result {
-  int vote_count;
-  int id;
-  bool video;
-  String vote_average;
-  String title;
-  double _popularity;
-  String poster_path;
-  String original_language;
-  String original_title;
-  List<int> _genre_ids = [];
-  String backdrop_path;
-  bool _adult;
-  String _overview;
-  String release_date;
+  int? vote_count;
+  int? id;
+  bool? video;
+  String? vote_average;
+  String? title;
+  double? _popularity;
+  String? poster_path;
+  String? original_language;
+  String? original_title;
+  List<int?> _genre_ids = [];
+  String? backdrop_path;
+  bool? _adult;
+  String? _overview;
+  String? release_date;
 
   Result(result) {
     vote_count = result['vote_count'];
@@ -60,31 +60,31 @@ class Result {
     release_date = result['release_date'];
   }
 
-  String get releaseResultdate => release_date;
+  String? get releaseResultdate => release_date;
 
-  String get overview => _overview;
+  String? get overview => _overview;
 
-  bool get adult => _adult;
+  bool? get adult => _adult;
 
-  String get backdrop_paths => backdrop_path;
+  String? get backdrop_paths => backdrop_path;
 
   List<int> get genre_ids => genre_ids;
 
-  String get original_titles => original_title;
+  String? get original_titles => original_title;
 
-  String get original_languages => original_language;
+  String? get original_languages => original_language;
 
-  String get poster_paths => poster_path;
+  String? get poster_paths => poster_path;
 
   double get popularity => popularity;
 
-  String get titles => title;
+  String? get titles => title;
 
-  String get vote_averages => vote_average;
+  String? get vote_averages => vote_average;
 
-  bool get videos => video;
+  bool? get videos => video;
 
-  int get ids => id;
+  int? get ids => id;
 
-  int get vote_counts => vote_count;
+  int? get vote_counts => vote_count;
 }

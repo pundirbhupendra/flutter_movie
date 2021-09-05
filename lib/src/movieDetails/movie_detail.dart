@@ -10,31 +10,30 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MovieDetail extends StatelessWidget {
   final Result result;
-  const MovieDetail({@required this.result}) : assert(result != null);
+  const MovieDetail({required this.result}) : assert(result != null);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     BlocProvider.of<MovieDetailBloc>(context)
-      ..add(FetchMovieDetail(id: result.id));
+      ..add(FetchMovieDetail(id: result.id!));
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
       ),
       child: Scaffold(body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {
-        if (state is MovieDetailLoading) {
+        if (state.status.isLoading) {
           return Center(child: CircularProgressIndicator());
         }
-        if (state is MovieDetailLoaded &&
-            state.movieDetailResponse.results.isNotEmpty) {
-          print(state.movieDetailResponse.results.toString());
+        if (state.status.isSuccess &&
+            state.movieDetailResponse!.results!.isNotEmpty) {
+          print(state.movieDetailResponse!.results.toString());
           return ListView(
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                
                   Hero(
-                    tag: result.id,
+                    tag: result.id!,
                     child: CachedNetworkImage(
                       imageUrl:
                           'https://image.tmdb.org/t/p/w500${result.backdrop_path}',
@@ -45,28 +44,29 @@ class MovieDetail extends StatelessWidget {
                   Positioned.fill(
                       child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                          child: Container(
-                            color: Colors.black.withOpacity(0.2)
-                          ))),
-                        InkWell(
-                          onTap: ()=> Navigator.of(context).pop(),
-                          child: Container(
-                            margin: EdgeInsets.all(8),
-                            padding: EdgeInsets.all(8),
-                           decoration: BoxDecoration(
-                             color: Colors.black12,
-                             shape: BoxShape.circle
-                             ),
-                          child: Icon(Icons.arrow_back_ios,color: Colors.white,size: 20,),
-                          ),
-                        ),
+                          child:
+                              Container(color: Colors.black.withOpacity(0.2)))),
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      margin: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.black12, shape: BoxShape.circle),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
                   Positioned(
                       top: 150,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            state.movieDetailResponse.results[0].name,
+                            state.movieDetailResponse!.results![0].name!,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -96,15 +96,16 @@ class MovieDetail extends StatelessWidget {
               _overView(size, result),
             ],
           );
-        } else {
-          return Center(
-              child: Text(
-            'No Data Available!!',
-            style: GoogleFonts.anton(),
-          ));
         }
-        ;
-        if (state is MovieDetailError) {
+        //  else {
+        //   return Center(
+        //       child: Text(
+        //     'No Data Available!!',
+        //     style: GoogleFonts.anton(),
+        //   ));
+        // }
+      
+        if (state.status.isFailure) {
           return Center(child: Text(state.message));
         }
         return Center(child: CircularProgressIndicator());

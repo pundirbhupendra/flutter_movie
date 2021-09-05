@@ -14,8 +14,8 @@ class MovieApiClient {
 
   Future<ItemList> fechMovieList() async {
     try {
-      final response = await http.get(UrlConstant.BASE_URL +
-          '/movie/popular?api_key=${UrlConstant.apiKey}');
+      final response = await http.get(Uri.parse(UrlConstant.BASE_URL +
+          "/movie/popular?api_key=${UrlConstant.apiKey}"));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonString = jsonDecode(response.body);
@@ -29,13 +29,14 @@ class MovieApiClient {
     } catch (e) {
       print(e.toString());
     }
+     throw Exception('some error occurred');
   }
 
   //fetch movie detais..
   Future<MovieDetailResponse> fechMovieDetails(int movieId) async {
     try {
-      final response = await http.get(UrlConstant.BASE_URL +
-          '/movie/$movieId/videos?api_key=${UrlConstant.apiKey}');
+      final response = await http.get(Uri.parse(UrlConstant.BASE_URL +
+          "/movie/$movieId/videos?api_key=${UrlConstant.apiKey}"));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonString = jsonDecode(response.body);
@@ -46,20 +47,27 @@ class MovieApiClient {
     } catch (e) {
       print(e.toString());
     }
+     throw Exception('some error occurred');
   }
 
   Future<ItemList> getSearchMovies(String query) async {
     try {
-      final response = await http.get(UrlConstant.BASE_URL +
-          '/search/movie/?api_key=${UrlConstant.apiKey}&query=$query');
+      final response = await http.get(Uri.parse(UrlConstant.BASE_URL +
+          "/search/movie/?api_key=${UrlConstant.apiKey}&query=$query"));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonString = jsonDecode(response.body);
         return ItemList.fromJson(jsonString);
+      }else{
+
       }
+     
     } on SocketException catch (_) {
+      throw FetchDataException('No Internet Connection');
     } catch (e) {
       print(e.toString());
     }
+     throw Exception('some error occurred');
   }
+
 }

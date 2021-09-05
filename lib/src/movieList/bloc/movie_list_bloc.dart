@@ -8,11 +8,9 @@ import 'package:meta/meta.dart';
 class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
   final MovieApiRepository movieApiRepository;
 
-  MovieListBloc({@required this.movieApiRepository})
-      : assert(movieApiRepository != null);
+  MovieListBloc({required this.movieApiRepository})
+      : super(MovieListLoading());
 
-  @override
-  MovieListState get initialState => MovieListLoading();
 
   @override
   Stream<MovieListState> mapEventToState(MovieListEvent event) async* {

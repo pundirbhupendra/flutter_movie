@@ -13,7 +13,7 @@ class MovieListLoading extends MovieListState {
 
 class MovieListLoaded extends MovieListState {
   final ItemList movieList;
-  MovieListLoaded({@required this.movieList});
+  MovieListLoaded({required this.movieList});
 
   @override
   List<Object> get props => [movieList];
@@ -21,7 +21,7 @@ class MovieListLoaded extends MovieListState {
 
 class MovieListError extends MovieListState {
   final message;
-  MovieListError({@required this.message});
+  MovieListError({required this.message});
   @override
   List<Object> get props => [message];
 }

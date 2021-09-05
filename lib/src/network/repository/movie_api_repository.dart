@@ -6,8 +6,7 @@ import 'package:meta/meta.dart';
 class MovieApiRepository {
   final MovieApiClient movieApiClient;
 
-  MovieApiRepository({@required this.movieApiClient})
-      : assert(movieApiClient != null);
+  MovieApiRepository({ required this.movieApiClient});
 
   Future<ItemList> fetchAllMovieLists() {
     return movieApiClient.fechMovieList();

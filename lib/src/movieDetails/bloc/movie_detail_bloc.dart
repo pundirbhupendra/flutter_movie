@@ -1,28 +1,33 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_movie/src/movieDetails/bloc/movie_details.state.dart';
-import 'package:flutter_movie/src/movieDetails/bloc/movie_details_event.dart';
+
+import 'package:bloc/bloc.dart';
 import 'package:flutter_movie/src/movieDetails/model/movie_details.dart';
 import 'package:flutter_movie/src/network/repository/movie_api_repository.dart';
-import 'package:meta/meta.dart';
 
-class MovieDetailBloc extends Bloc<MovieDetailEvent,MovieDetailState>{
-  final MovieApiRepository movieRepository;
-  MovieDetailBloc({@required this.movieRepository}): assert(movieRepository!= null);
-  @override
-  MovieDetailState get initialState => MovieInitialState();
+import 'bloc.dart';
+import 'movie_details_event.dart';
 
-  @override
-  Stream<MovieDetailState> mapEventToState(MovieDetailEvent event) async*{
-    if(event is FetchMovieDetail){
-      yield MovieDetailLoading();
-      try{
-      MovieDetailResponse  movieDetailResponce =await movieRepository.fetchMovieDetails(event.id);
-      yield MovieDetailLoaded(movieDetailResponse: movieDetailResponce);
-      }catch(e){
-       yield MovieDetailError(message: e.toString());
+class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
+  MovieDetailBloc({required MovieApiRepository movieRepository})
+      : _movieRepository = movieRepository,
+        super(MovieDetailState.initial()) {
+    on<FetchMovieDetail>(_getMovieDetailList);
+  }
+  final MovieApiRepository _movieRepository;
+
+  void _getMovieDetailList(
+      FetchMovieDetail event, Emitter<MovieDetailState> emit) async {
+    if (event is FetchMovieDetail) {
+      emit(state.copyWith(status: MovieDetailStatus.loading));
+      try {
+        MovieDetailResponse movieDetailResponce =
+            await _movieRepository.fetchMovieDetails(event.id);
+        emit(state.copyWith(
+            movieDetailResponse: movieDetailResponce,
+            status: MovieDetailStatus.success));
+      } catch (e) {
+        emit(state.copyWith(
+            message: e.toString(), status: MovieDetailStatus.failure));
       }
     }
   }
-
-
 }

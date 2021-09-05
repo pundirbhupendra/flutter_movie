@@ -1,3 +1,5 @@
+
+
 class AppException implements Exception {
   final _message;
   final _prefix;
@@ -10,7 +12,7 @@ class AppException implements Exception {
 }
 
 class FetchDataException extends AppException {
-  FetchDataException([String message])
+  FetchDataException([String? message])
       : super(message, "Error:");
 }
 
@@ -23,5 +25,5 @@ class UnauthorisedException extends AppException {
 }
 
 class InvalidInputException extends AppException {
-  InvalidInputException([String message]) : super(message, "Invalid Input: ");
+  InvalidInputException([String? message]) : super(message, "Invalid Input: ");
 }
